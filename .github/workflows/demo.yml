@@ -1,0 +1,22 @@
+name: Demo
+
+on: [push]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint
+        pip install black
+        pip install -r requirements.txt
+    - name: Asciinema
+      run: |
+        pip install asciinema --user
+        asciinema --version
+        sh cinema.sh demo.sh out.ac
